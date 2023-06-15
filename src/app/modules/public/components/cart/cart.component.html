@@ -1,0 +1,113 @@
+<br /><br /><br /><br />
+<div *ngIf="!isItem">
+  <div class="container">
+    <hr />
+    <h5 class="card-title text-center">My Cart</h5>
+    <div class="center mt-4" style="position: fixed;" >
+      <img
+        src="../../../../../assets/first_white_girl_drbl.gif"
+        alt=""
+       class="img.animated-gif"
+       style=" width: 250px; height: 225px;"
+      />
+      <h4>Your cart is empty!</h4>
+      <h6>Add item to it now</h6>
+      <button routerLink="/user" class="btn button-bg">Shop Now</button>
+    </div>
+    <hr/>
+  </div>
+</div>
+<div *ngIf="isItem">
+ 
+  <div class="container Scroll">
+    <h2><b>Shopping Cart</b></h2>
+    <div class="">
+      <div class="cart-product">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Category</th>            
+              <th>Manage Quantity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of products; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.proudctTitle }} | {{ item.color }}</td>
+              <td>
+                <img
+                  style="width: 120px; height: 70px"
+                  src="{{ item.productImages }}"
+                  alt=""
+                />
+              </td>
+
+              <td style="width: 400px">
+                <span *ngIf="!item.showMore">
+                  {{ trimString(item.productDesc, 50) }}</span  
+                >
+                <span *ngIf="item.showMore">{{ item.productDesc }}</span>
+                <div
+                  *ngIf="item.productDesc?.length > 50"
+                  (click)="item.showMore = !item.showMore"
+                >
+                  <span class="text-primary" style="cursor: pointer">{{
+                    item.showMore ? "  Show less" : "Show More"
+                  }}</span>
+                </div>
+              </td>
+
+              <td style="width: 12%">{{ item.unitPrice | currency:'₹'}}</td>
+              <td style="width: 12%">{{ item.quantity }}</td>
+              <td  style="width: 12%">{{item.productCategory}}</td>
+              <td style="width: 12%">
+                <button (click)="minusToCart(item)" class="btn btn-danger qty-btn">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button (click)="AddToCart(item)" class="btn btn-danger qty-btn">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </td>
+              <td>
+                <button (click)="removeItem(item)" class="btn btn-danger qty-btn">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <button
+                  routerLink="/user/billing"
+                  class="btn btn-success w-100"
+                >
+                  Checkout
+                </button>
+              </td>
+
+              <td colspan="4"></td>
+              <!-- <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td> -->
+              <td>
+                <button routerLink="/user" class="btn btn-primary">
+                  Shop More
+                </button>
+              </td>
+              <td>
+                <strong >Grand Total : Rs.{{ grandTotal | currency:'₹'}}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

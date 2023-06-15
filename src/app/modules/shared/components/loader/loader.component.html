@@ -1,0 +1,18 @@
+<!-- <div class="d-flex justify-content-center loader-resposive">
+    <div  *ngIf="loader.status | async" class="progress-loader" > 
+      <span  class="spinner-border spinner-border-md" style="width: 3rem; height: 3rem;"  role="status" aria-hidden="true"></span>
+      <h5><strong>Loading...</strong></h5>
+    </div>
+  </div> -->
+  
+
+  <!-- 
+    <div class="loading-spinner" *ngIf="loader.isloadingstatus | async">
+        <span class="spinner-border spinner-border-md" style="width: 3rem; height: 3rem;" role="status" aria-hidden="true" role="status">
+        </span>
+    </div>
+  </div> -->
+  <div class="d-flex justify-content-center" *ngIf="loader.isloadingstatus | async">
+  <span class=" loader" style="width: 3rem; height: 3rem;"  ></span>
+  
+</div>

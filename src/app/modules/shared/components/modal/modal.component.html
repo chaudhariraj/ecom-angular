@@ -1,0 +1,38 @@
+<div
+  *ngIf="message"
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  style="display: block !important"
+>
+  <div class="modal-dialog custom-alert" role="document">
+    <div class="modal-content">
+      <div *ngIf="message?.type == 'confirm'" class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <p class="text-center text-dark confirm-message mb-2">
+              {{ message.text }}
+            </p>
+            <h5 class="text-center text-warning">
+              Once deleted, you will not be able to recover this record!
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="confirm-button">
+              <a class="mr-2" (click)="confirm(true)">
+                <button class="btn btn-yes">Yes</button>
+              </a>
+              &nbsp;
+              <a (click)="confirm(false)">
+                <button class="btn btn-no">No</button>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

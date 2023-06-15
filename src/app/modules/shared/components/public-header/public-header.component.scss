@@ -1,0 +1,97 @@
+.form-control {
+  border-width: 1px;
+  margin-left: 20px;
+  height: 35px;
+  width: 100%;
+}
+.cursor{
+  cursor: pointer;
+}
+
+.serach-icon {
+  position: absolute;
+  z-index: 10;
+  top: 22px;
+  right: 51%;
+  color: rgb(224, 224, 238);
+}
+.btn-logout {
+  margin-left: 50px;
+}
+
+
+.header {
+  width: 100%;
+
+  padding: 10px 0;
+}
+ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+ul {
+  list-style-type: none;
+}
+.header-bg {
+  color: white;
+  background: linear-gradient(to right, #699797 0%, #aeb948 100%);
+}
+
+.bg-custom-2 {
+  background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}
+
+.input-icons i {
+  position: absolute;
+}
+
+.input-icons {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.icon {
+  padding: 10px;
+  color: green;
+  min-width: 50px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+h2 {
+  color: green;
+}
+.bg-custom-1 {
+  background-color: #85144b;
+}
+.imageCenter{
+  margin-left: 5px;
+}
+
+.bg-custom-2 {
+background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767px) { 
+  .responsive{
+    text-align: center;
+    overflow: hidden;
+  }
+.search-product{
+margin-left: 0px;
+margin-right: -90px;
+
+}
+div i{
+  display: none;
+}
+
+}
+
+// ----------------------------------------------------------

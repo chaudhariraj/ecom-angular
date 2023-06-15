@@ -1,0 +1,104 @@
+<br /><br /><br />
+<div class="container">
+  <div id="content" #content>
+    <div class="alert alert-success d-print-none m-2" role="alert">
+      Thank you so much <strong>{{ this.fullName }}</strong
+      >.Your order has been placed successfully and will be delivered in
+      <strong>3 days.</strong>
+      <button class="btn btn-sm btn-info ml-2 m-4" (click)="print()">
+        Print Invoice</button
+      ><button class="btn btn-sm btn-info ml-1" (click)="newOrder()">
+        Place a New Order
+      </button>
+      <button class="btn btn-sm btn-info ml-2 m-4" (click)="makePDF()">
+        Download
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-header d-flex justify-content-between" id="table">
+        <b>Invoice Date: {{ dateTime | date: "d-MMM-yyyy" }}</b>
+        <span class=""> <strong>Status:</strong> Pending</span>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 text-left"></div>
+          <div class="col-md-6 text-right">
+            <h4># INV-{{ invoiceNo }}</h4>
+          </div>
+        </div>
+        <div class="table-responsive-sm">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="center">Sr No</th>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>GST</th>
+                <th class="right">Unit Cost</th>
+                <th class="center">Qty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products; let i = index">
+                <td class="center">{{ i + 1 }}</td>
+                <td class="left strong">
+                  {{ item.proudctTitle }} | {{ item.color }}
+                </td>
+                <td>{{ item.productDesc }}</td>
+                <td>{{ item.productCategory }}</td>
+                <td>
+                  <strong>CGST@{{ showgst }}%</strong>
+                </td>
+                <td class="right">{{ item.unitPrice }}</td>
+
+                <td class="center">{{ item.quantity }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 col-sm-6"></div>
+          <div class="col-lg-4 col-sm-5">
+            <table class="table table-clear">
+              <tbody>
+                <tr>
+                  <td class="left">
+                    <strong>Sub Total</strong>
+                  </td>
+
+                  <td class="right">INR {{ grandTotal | currency:'₹'}}</td>
+                </tr>
+                <tr>
+                  <td class="left">
+                    <strong>Total with (GST)</strong>
+                  </td>
+                  <td class="right">
+                    <strong>INR {{ grandTotalGst | currency:'₹'}}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #emptyCheckout>
+    <div class="card alert alert-primary">
+      <div class="card-body">
+        Please shop some products & Provide billing information .<a
+          class="btn btn-sm btn-info float-right ml-2"
+          routerLink="/"
+        >
+          Continue Shopping</a
+        >
+        &nbsp; &nbsp;
+        <a class="btn btn-sm btn-info float-right" routerLink="/">
+          Go to Billing</a
+        >
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,134 @@
+<br /><br />
+<div >
+  <div class="card-top container-fluid mt-3">
+    <div class="container-fluid">
+      <div class="row ">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-4 col-sm-4">
+          <div class="container categorys item">
+            <div class="item text-center">
+              <a (click)="filter('')">
+                <img class="Category-Image"
+                src="https://rukminim1.flixcart.com/flap/128/128/image/f15c02bfeb02d15d.png?q=100" alt="" />
+                <h6>All products</h6>
+              </a>
+            </div>
+            <div class="item">
+              <a (click)="filter('Electronics')">
+                <img class="Category-Image"
+                src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/da4e107d50844c45.png?q=100" alt="" />
+                <h6>Electronics</h6>
+              </a>
+            </div>
+
+            <div class="item">
+              <a (click)="filter('Fashion')">
+                <img class="Category-Image"
+                src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/18289de2eebb6654.png?q=100" alt="" />
+                <h6>Fashion</h6>
+              </a>
+            </div>
+
+            <div class="item">
+              <a (click)="filter('Toys')">
+                <img class="Category-Image" style="width: 62px"
+                src="https://rukminim1.flixcart.com/flap/128/128/image/dff3f7adcf3a90c6.png?q=100"
+                alt="" />
+                <h6>Toys</h6>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4  d-flex justify-content-center">
+          <div class="mb-4 mt-2">
+            <select class="form-select" (change)="onChangeSort($event)">
+              <option selected>Sort By Price</option>
+              <option value="product_pricelth">
+                Sort By Price (Low to High)
+              </option>
+              <option value="product_pricehtl">
+                Sort By Price (High to Low)
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container-fluid">
+      <div class="col-12 slider-position " >
+        <ngb-carousel>
+          <!-- <ng-template ngbSlide>
+            <img class="Image" src="" />
+          </ng-template> -->
+          <ng-template ngbSlide>
+            <img class="Image" src="../../../../../assets/61GO0NKfxxL._SX3000_.jpg" />
+          </ng-template>
+          <!-- <ng-template ngbSlide>
+            <img class="Image" src="../../../../../assets/71+LxBwh3hL._SX3000_.jpg" />
+          </ng-template> -->
+          <ng-template ngbSlide>
+            <img class="Image" src="../../../../../assets/71oWjjmYjtL._SX3000_.jpg" />
+          </ng-template>
+          <ng-template ngbSlide>
+            <img class="Image" src="../../../../../assets/71q3sBguoML._SX3000_.jpg" />
+          </ng-template>
+        </ngb-carousel>
+        <div class="d-flex justify-content-center mt-2">
+          <img class="Image-Mid" src="../../../../../assets/Blockbuster_Page_header_1500x150.gif" alt="Image">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <hr /> -->
+
+  <div class="container grid-view"  *ngIf="view === 'grid'">
+    <div class="row d-flex justify-content-center ">
+      <ng-container *ngFor="
+          let product of filterCategory
+            | filter: searchKey:'title'
+            | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: totalLength}
+        ">
+        <div class="card col-md-2 col-sm-2 mt-2 background">
+          <img class="Product-Image" (click)="(goToLink)" src="{{ product.productImages }}" alt="" />
+          <h5 style="
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 50ch;
+            ">
+            {{ product.proudctTitle }}
+          </h5>
+          <p style="
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 50ch;
+            ">
+            {{ product.productDesc }} | <b>Color:</b> {{ product.color }}
+          </p>
+          <p>
+            <strong>Price:</strong> Rs. {{ product.unitPrice | currency:'₹' }} |
+            <span [style.color]="product.remainingQty == 0 ? 'red' : 'Green'">{{
+              product.remainingQty === 0 ? "Out of stock" : "Available"
+              }}</span>
+          </p>
+
+
+          <button class="btn button-bg" [disabled]="product.remainingQty == 0" (click)="AddToCart(product)">
+            Add to cart
+          </button>
+        </div>
+      </ng-container>
+    </div>
+    <pagination-controls  class="d-flex justify-content-center" class=" center" nextLabel="Next" previousLabel="Prev" 
+      (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>
+
+<div class="list-view"  *ngIf="view === 'list'">
+
+</div>

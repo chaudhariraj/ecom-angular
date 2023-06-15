@@ -1,0 +1,31 @@
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light header-bg">
+    <div class="container-fluid">
+      <a  class="navbar-brand">shopXpert</a>
+      <button
+      type="button"
+      class="navbar-toggler button-resp"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div
+        class="collapse navbar-collapse justify-content-between responsive"
+        id="navbarCollapse"
+      >
+        <div class="navbar-nav"></div>
+  
+        <div class="navbar-nav cursor">
+          <a (click)="manageOrders()" class="nav-item nav-link"
+            >Manage Orders</a
+          >
+          <a (click)="productList()" class="nav-item nav-link"
+            >Product List</a
+          >
+          <a (click)="login()" class="nav-item nav-link">LogOut</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  

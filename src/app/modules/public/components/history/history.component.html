@@ -1,0 +1,65 @@
+<br><br>
+<div class="m-3"><h2>Your Purchase History</h2></div>
+<hr>
+<div class="m-2">
+<table class="table ">
+  <thead class="thead-dark">
+    <tr>
+      <th>Sr.No</th>
+      <th>Product Name</th>
+      <th>Product Image</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Purchase Date</th>
+      <th>Status</th>
+      <th>Rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="
+    let item of filterCategory | filter: searchKey:'proudctTitle';
+    let i = index
+  ">
+  <td>{{ i + 1 }}</td>
+  <td style="width: 350px;  ">{{ item.proudctTitle }} | {{ item.color }}</td>
+  <td><img
+    style="width: 120px; height: 70px"
+    src="{{ item.productImages }}"
+    alt=""
+  /></td>
+  <td style="width: 350px;  ">
+    <span *ngIf="!item.showMore">
+      {{ trimString(item.productDesc, 30) }}</span
+    >
+    <span *ngIf="item.showMore">{{ item.productDesc }}</span>
+    <div
+      *ngIf="item.productDesc?.length > 50"
+      (click)="item.showMore = !item.showMore"
+    >
+      <span class="text-primary" style="cursor: pointer">{{
+        item.showMore ? "  Show less" : "Show More"
+      }}</span>
+    </div>
+  </td>
+  <td>{{ item.quantity }}</td>
+  <td>{{ item.unitPrice | currency:'₹'}}</td>
+  <td style="width: 20px">{{ item.orderDate | date: "short" }}</td>
+  <td
+    [style.color]="checkOrderStatus(item.orderStatus) == 'Accepted' ? 'Green' : 'red'"
+  >
+    {{ checkOrderStatus(item.orderStatus) }}
+  </td>
+  <td>
+    <ngb-rating
+    [max]="5"
+    (click)="Rating(ratingList.rating)"                
+    [(rate)]="currentRate"
+    [readonly]="false"
+  ></ngb-rating>
+  <p>Rate: {{ currentRate }}</p>
+  </td>
+     </tr>
+  </tbody>
+</table>
+</div>

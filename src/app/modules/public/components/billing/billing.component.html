@@ -1,0 +1,180 @@
+<br /><br /><br />
+<div class="container-fluid">
+  <h2><b>Billing Information</b></h2>
+  <hr />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 order-md-1">
+        <div class="card">
+          <h5 class="card-header bg-info bg-light">Billing Information</h5>
+          <div class="card-body">
+            <form [formGroup]="billingForm" (ngSubmit)="onSubmit()">
+              <div class="form-row mb-4">
+                <div class="form-group mb-2">
+                  <label for="Mobile" class="form-label h6">Address</label>
+                  <textarea
+                    type="address"
+                    placeholder="Your Address"
+                    formControlName="address"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                  ></textarea>
+                  <div
+                    *ngIf="submitted && f.address.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.address.errors.required">
+                      Address is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-2">
+                  <label for="cars" class="form-label h6">Country</label>
+                  <select
+                    (change)="onChangeCountry($event)"
+                    formControlName="country"
+                    class="form-control"
+                  >
+                    <option value="">Select Country</option>
+                    <option
+                      *ngFor="let country1 of countries"
+                      value="{{ country1.countryId }}"
+                    >
+                      {{ country1.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-2">
+                  <label for="State" class="form-label h6">State</label>
+                  <select
+                    formControlName="state"
+                    [ngModel]="selectedState"
+                    (change)="onChangeState($event)"
+                    class="form-control"
+                  >
+                    <option value="">Select State</option>
+                    <option
+                      *ngFor="let state of statelist"
+                      value="{{ state.stateId }}"
+                    >
+                      {{ state.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-2">
+                  <label for="City" class="form-label h6">City</label>
+                  <select
+                    [ngModel]="selectedCity"
+                    formControlName="city"
+                    (change)="onChangeCity($event)"
+                    class="form-control"
+                  >
+                    <option value="">Select City</option>
+                    <option
+                      *ngFor="let city of citylist"
+                      value="{{ city.cityId }}"
+                    >
+                      {{ city.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-2">
+                  <label for="City" class="form-label h6">Zip Code</label>
+                  <select
+                    [ngModel]="selectedZip"
+                    formControlName="postalCode"
+                    class="form-control"
+                  >
+                    <option value="">Select Zip</option>
+                    <option
+                      *ngFor="let zip of ziplist"
+                      value="{{ zip.zipCodeId }}"
+                    >
+                      {{ zip.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-2">
+                  <label for="cars " class="form-label h6"
+                    >Payment Method</label
+                  >
+
+                  <select
+                    name="payment"
+                    id="payment"
+                    formControlName="payment"
+                    class="form-select"
+                    [ngClass]="{ 'is-invalid': submitted && f.payment.errors }"
+                  >
+                    <option selected>Select Payment</option>
+                    <option
+                      class="text-primary"
+                      *ngFor="let item of payment | keyvalue"
+                    >
+                      {{ item.value }}
+                    </option>
+                  </select>
+
+                  <div
+                    *ngIf="submitted && f.payment.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.payment.errors.required">
+                      state is required
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix btn-right d-flex justify-content-between">
+                <button
+                  type="submit"
+                  [disabled]="billingForm.invalid"
+                  class="btn btn-primary"
+                >
+                  Confirm and Place Order
+                </button>
+                &nbsp;
+                <a routerLink="/user" class="btn btn-md btn-primary"
+                  >Continue Shopping</a
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 order-md-2">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Your cart</span>
+          <span class="badge badge-warning badge-pill"></span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item d-flex justify-content-between lh-condensed"
+            *ngFor="let item of products; let i = index"
+          >
+            <div>
+              <h6>
+                {{ item.proudctTitle }} | {{ item.color }}
+                <span class="badge badge-pill badge-info text-right"></span>
+                x {{ item.quantity | currency:'₹' }} qty
+                <span class="badge badge-pill badge-default text-right"> </span>
+              </h6>
+            </div>
+            <span class="text-muted">{{ item.unitPrice | currency:'₹' }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <span>Total (INR)</span>
+            <strong>{{ grandTotal | currency:'₹' }}</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<br /><br /><br />
+<div class="container-fluid">
+  <div class="m-3 dropdown d-flex justify-content-between text-dark text-center">
+    <div class="d-flex">
+      <h3 style="width: 300px"><b>Product List</b></h3>
+      <div class="input-icons d-flex" style="justify-content: right">
+        <i class="fa fa-search icon"></i>
+        <input type="text" class="form-control search" placeholder="Search" [(ngModel)]="filterTerm"
+          style="width: 800px" />
+      </div>
+    </div>
+    <button type="button" class="btn btn-success btn-rounded button-position" (click)="Create()">
+      Create Product
+    </button>
+  </div>
+  <hr />
+  <div class="card-table">
+    <div class="cart-product Scroll">
+      <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th>Sr.No</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Image</th>
+            <th class="text-center">Description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Total Qty</th>
+            <th>Remaining Qty</th>
+            <th>Color</th>
+            <th>Status</th>
+            <th class="text-center" colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let Product of productList | filter: filterTerm | paginate: { itemsPerPage: pagesize, currentPage: page, totalItems: products} let i = index;">
+            <td>{{ i + 1 }}</td>
+            <td>{{ Product.proudctTitle }}</td>
+            <td>
+              <img style="width: 120px; height: 70px; border-radius: 10px" src="{{ Product.productImages }}" alt="" />
+            </td>
+            <td style="width: 400px">
+              <span *ngIf="!Product.showMore">
+                {{ trimString(Product.productDesc, 50) }}</span>
+              <span *ngIf="Product.showMore"> {{ Product.productDesc }}</span>
+              <div *ngIf="Product.productDesc?.length > 50" (click)="Product.showMore = !Product.showMore">
+                <span class="text-primary" style="cursor: Pointer">{{
+                  Product.showMore ? "Show less" : "Show More"
+                  }}</span>
+              </div>
+            </td>
+
+            <td>
+              {{ Product.productCategory }}
+            </td>
+            <td>{{ Product.unitPrice | currency:'₹' }}</td>
+            <td>{{ Product.totalQty }}</td>
+            <td>{{ Product.remainingQty }}</td>
+            <td>{{ Product.color }}</td>
+            <td>
+              <span [style.color]="Product.remainingQty == 0 ? 'red' : 'Green'">{{
+                Product.remainingQty === 0 ? "Out of stock" : "Available"
+                }}</span>
+            </td>
+            <td>
+              <button (click)="editProduct(Product.productId)" class="btn btn-primary">
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="checkDelete(Product)" class="btn btn-danger">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <app-modal></app-modal>
+  <div class="d-flex justify-content-center">
+    <!-- <pagination-controls class=" center" nextLabel="Next" previousLabel="Prev" 
+  (pageChange)="p = $event"></pagination-controls> -->
+    <pagination-controls class="d-flex justify-content-center" class=" center" nextLabel="Next" previousLabel="Prev"
+      (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>

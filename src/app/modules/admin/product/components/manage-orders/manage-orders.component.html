@@ -1,0 +1,155 @@
+<br /><br /><br />
+<div>
+  <div class="m-3 dropdown d-flex justify-content-between text-dark text-center">
+    <div class="d-flex">
+      <h3 style="width: 300px"><b>Manage Orders</b></h3>
+      <div class="input-icons d-flex" style="justify-content: right">
+        <i class="fa fa-search icon"></i>
+        <input type="text" class="form-control search" placeholder="Search" [(ngModel)]="filterTerm"
+          style="width: 800px" />
+      </div>
+    </div>
+    <button class="btn btn-secondary dropdown-toggle button-position" type="button" data-bs-toggle="dropdown">
+      Order Status
+    </button>
+
+    <ul class="dropdown-menu" style="cursor: pointer">
+      <li>
+        <a (click)="orderStatusList('Accepted')" class="dropdown-item">Accepted</a>
+      </li>
+      <li>
+        <a (click)="orderStatusList('Rejected')" class="dropdown-item">Rejected</a>
+      </li>
+      <li>
+        <a (click)="orderStatusList('Pending')" class="dropdown-item">Pending</a>
+      </li>
+    </ul>
+  </div>
+  <div class="container-fluid">
+    <div class="card-table Scroll">
+      <div class="cart-product">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              <th>Sr.No</th>
+              <th>Customer</th>
+              <th class="text-center">Title</th>
+              <th class="text-center">Image</th>
+              <th class="text-center">Description</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Order Date</th>
+              <th>Color</th>
+              <th>OrderStatus</th>
+              <th class="text-center" colspan="2">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf=" this.Order.length !== 0 ">
+            <tr *ngFor="let Product of Order | filter: filterTerm; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ Product.firstName }} {{ Product.lastName }}</td>
+              <td>{{ Product.proudctTitle }}</td>
+              <td>
+                <img style="width: 120px; height: 70px" src="{{ Product.productImages }}" alt="" />
+              </td>
+              <td style="width: 400px">
+                <span *ngIf="!Product.showMore">
+                  {{ trimString(Product.productDesc, 50) }}</span>
+                <span *ngIf="Product.showMore"> {{ Product.productDesc }}</span>
+                <div *ngIf="Product.productDesc?.length > 50" (click)="Product.showMore = !Product.showMore">
+                  <span class="text-primary" style="cursor: Pointer">{{
+                    Product.showMore ? "Show less" : "Show More"
+                    }}</span>
+                </div>
+              </td>
+              <td>
+                {{ Product.unitPrice | currency:'₹'}}
+              </td>
+              <td>
+                {{ Product.quantity }}
+              </td>
+              <td style="width: 20px">
+                {{ Product.orderDate | date: "short" }}
+              </td>
+              <td>{{ Product.color }}</td>
+              <td [style.color]="
+                checkOrderStatus(Product.orderStatus) == 'Accepted' ? 'Green' : 'red'
+                ">
+                {{ checkOrderStatus(Product.orderStatus) }}
+
+              </td>
+              <td>
+                <div *ngIf="checkOrderStatus(Product.orderStatus) == 'Rejected'" class="row container-fluid"
+                  id="divshow">
+                  <button (click)="
+                    changeOrderStatus(
+                      3,
+                      Product.orderId,
+                      Product.quantity,
+                      Product.productId
+                    )
+                  " class="btn btn-primary button-bg">
+                    <i class="fas fa-check"></i>
+                    Accept
+                  </button>
+                </div>
+                <div>
+                  <div *ngIf="checkOrderStatus(Product.orderStatus) == 'Pending'" class="row container-fluid"
+                    id="divshow">
+                    <button (click)="
+                    changeOrderStatus(
+                      3,
+                      Product.orderId,
+                      Product.quantity,
+                      Product.productId
+                    )
+                  " class="btn btn-primary button-bg">
+                      <i class="fas fa-check"></i>
+                      Accept
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="checkOrderStatus(Product.orderStatus) == 'Accepted'" class="row container-fluid"
+                  id="divshow">
+                  <button (click)="
+                    changeOrderStatus(
+                      2,
+                      Product.orderId,
+                      Product.quantity,
+                      Product.productId
+                    )
+                  " class="btn btn-danger button-bg">
+                    <i class="fas fa-window-close"></i>
+                    Reject
+                  </button>
+                </div>
+                <div>
+                  <div *ngIf="checkOrderStatus(Product.orderStatus) == 'Pending'" class="row container-fluid"
+                    id="divshow">
+                    <button (click)="
+                      changeOrderStatus(
+                        2,
+                        Product.orderId,
+                        Product.quantity,
+                        Product.productId
+                      )
+                    " class="btn btn-danger button-bg">
+                      <i class="fas fa-window-close"></i>
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center" *ngIf=" this.Order.length === 0 ">
+  <h3 class="Center">There are no order to display</h3>
+</div>

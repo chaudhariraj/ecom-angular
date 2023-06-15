@@ -1,0 +1,38 @@
+.form-control{
+    border-width: 1px;
+    margin-left: 30px;
+    height: 35px;
+}
+
+.btn-home{
+    text-decoration: none;
+    color: #fff;
+}
+  ul li a {
+    text-decoration: none;
+    color: rgb(252, 248, 248);
+    
+}   
+ul{
+    list-style-type: none;
+    cursor: pointer;
+}
+.cursor{
+  cursor: pointer;
+}
+
+.header-bg{
+    color: white;
+  background: linear-gradient(to right, #699797 0%, #aeb948 100%);
+  ;
+}
+
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767px) { 
+  .responsive{
+    text-align: center;
+    overflow: hidden;
+  }
+
+}

@@ -1,0 +1,77 @@
+<div class="row bg-img">
+    <h2 class=" text-center mt-4">ShopXpert App</h2>
+    <div class="col-md-8 bg-new"></div>
+    <div class="col-md-3 ">
+      <div class="card" style="background-color: transparent;">
+  
+        <div class="" style="background-color: transparent">
+          <div class="text-center">
+            <fa-icon [icon]="faLock" class="fa-3x"></fa-icon>
+          </div>
+          <div class="text-center">
+            <h2>Welcome</h2>
+          </div>
+          <p style="color: lightslategray; text-align: center">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please enter your
+            login details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </p>
+  
+          <form [formGroup]="loginForm " class="container-ceter">
+            <div class="form-group mb-2 ">
+              <label for="Username" class="form-label h6">User Name</label>
+              <input
+                type="text"
+                formControlName="Username"
+                minlength="2"
+                maxlength="35"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.Username.errors }"
+              />
+              <div
+                *ngIf="submitted && f.Username.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.Username.errors.required">
+                  This field is required
+                </div>
+                <div *ngIf="f.Username.errors.maxlength">
+                  Max 35 alphabets allowed
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group mb-4">
+              <label for="password" class="form-label h6">Password</label>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              />
+              <div
+                *ngIf="submitted && f.password.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.password.errors.required">This field is required</div>
+                <div *ngIf="f.password.errors?.pattern">
+                  Please provide valid password
+                </div>
+              </div>
+            </div>
+            <div class="form-group text-center mb-4">
+              <button
+                class="btn button-bg w-100 mb-2"
+                (click)="onSubmit()"
+              >
+                Login</button
+              ><br />
+              <a routerLink="/register" class="btn btn-link "
+                >Don't have an account?<b>Sign Up Now</b></a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

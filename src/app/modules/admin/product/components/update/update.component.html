@@ -1,0 +1,241 @@
+<br /><br />
+<div class="container-fluid mt-3">
+  <h2 class="text-center"><b>Update Product</b></h2>
+  <hr />
+</div>
+
+<div class="container">
+  <form [formGroup]="productsForm" (ngSubmit)="onSubmit()">
+    <div class="">
+      <div class="row">
+        <div class="col mb-4">
+          <label for="proudctTitle" class="form-label h6">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            formControlName="proudctTitle"
+            name="proudctTitle"
+            [ngClass]="{ 'is-invalid': submitted && f.proudctTitle.errors }"
+          />
+          <div
+            *ngIf="submitted && f.proudctTitle.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.proudctTitle.errors.required">
+              This field is required
+            </div>
+            <div *ngIf="f.proudctTitle.errors.pattern">
+              Only String accept here
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col mb-4">
+        <label for="productDesc" class="form-label h6">Description</label>
+        <textarea
+          type="text"
+          class="form-control"
+          placeholder="Description"
+          formControlName="productDesc"
+          name="productDesc"
+          [ngClass]="{ 'is-invalid': submitted && f.productDesc.errors }"
+        ></textarea>
+        <div
+          *ngIf="submitted && f.productDesc.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.productDesc.errors.required">
+            This field is required
+          </div>
+          <div *ngIf="f.productDesc.errors.pattern">
+            Only String accept here
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col mb-4">
+          <label class="form-label h6">Enter URL</label>
+          <input
+            type="text"
+            formControlName="productImages"
+            class="form-control mb-2"
+            placeholder="Url"
+            [ngClass]="{ 'is-invalid': submitted && f.productImages.errors }"
+          />
+          <div
+            *ngIf="f.productImages.touched && f.productImages.invalid"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.productImages.errors?.required">
+              This field is required
+            </div>
+            <div *ngIf="f.productImages.errors?.pattern">
+              Please provide valid url
+            </div>
+          </div>
+        </div>
+   
+      </div>
+
+    
+      
+      <div class="row">
+        <div class="col mb-4">
+          <label for="totalQty" class="form-label h6">Quantity</label>
+          <input
+            type="text"
+            minlength="1"
+            maxlength="6"
+            onkeydown="if(event.key==='.'){event.preventDefault();}" 
+            oninput="this.value = Math.abs(this.value)"
+            pattern="\d*"      
+            class="form-control"
+            (keyup)="checkValidBalance($event)"
+            placeholder="Qty"
+            formControlName="totalQty"
+            ng-model="val1" ng-change="checkRemainQty($event)"
+            name="totalQty"
+            [ngClass]="{ 'is-invalid': submitted && f.totalQty.errors }"
+          />
+          <div *ngIf="submitted && f.totalQty.errors" class="invalid-feedback">
+            <div *ngIf="f.totalQty.errors.required">This field is required</div>
+            <div *ngIf="f.totalQty.errors.maxlength">Only 5 digit allowed</div>
+          </div>
+        </div>
+
+        <div class="col mb-4">
+          <label for="remainingQty" class="form-label h6">Remaining Quantity</label>
+          <input
+            type="text"
+            minlength="1"
+            maxlength="6"   
+            pattern="\d*"      
+            onkeydown="if(event.key==='.'){event.preventDefault();}" 
+            oninput="this.value = Math.abs(this.value)"
+            [(ngModel)]="val2" 
+            (keyup)="checkValidBalance($event)"
+            class="form-control"
+            placeholder="Remaining Qty"
+            formControlName="remainingQty"         
+            name="remainingQty"
+            [ngClass]="{ 'is-invalid': submitted && f.remainingQty.errors }"
+          />
+
+          <div *ngIf="submitted && f.remainingQty.errors" class="invalid-feedback">
+            <div *ngIf="f.remainingQty.errors.required">This field is required</div>
+            <div *ngIf="f.remainingQty.errors.maxlength">Only 5 digit allowed</div>
+          </div>
+        </div>
+
+        <div class="col mb-4">
+          <label for="unitPrice" class="form-label h6">Price</label>
+          <input
+            type="text"
+            minlength="1"
+            maxlength="7"
+            pattern="\d*"      
+            oninput="this.value = Math.abs(this.value)"
+            onkeydown="if(event.key==='.'){event.preventDefault();}" 
+            class="form-control"
+            placeholder="Price"
+            formControlName="unitPrice"
+            name="proudctTitle"
+            [ngClass]="{ 'is-invalid': submitted && f.unitPrice.errors }"
+          />
+          <div *ngIf="submitted && f.unitPrice.errors" class="invalid-feedback">
+            <div *ngIf="f.unitPrice.errors.required">
+              This field is required
+            </div>
+            <div *ngIf="f.unitPrice.errors.maxlength">
+              Only 7 digit allowed
+            </div>
+          </div>
+        </div>
+<!-- 
+        <div class="form-group mb-2">
+          <label for="Status" class="form-label h6">Status</label>
+
+          <select
+            name="status"
+            formControlName="status"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.status.errors }"
+          >
+            <option selected>Select Status</option>
+            <option class="text-primary" *ngFor="let item of status | keyvalue">
+              {{ item.value }}
+            </option>
+          </select>
+          <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+            <div *ngIf="f.status.errors.required">This field is required</div>
+          </div>
+        </div> -->
+      </div>
+      <div class="row">
+        <div class="form-group col mb-4">
+          <label for="color" class="form-label h6">Color</label>
+
+          <select
+            name="color"
+            formControlName="color"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.color.errors }"
+          >
+            <option selected>Select Color</option>
+            <option class="text-primary" *ngFor="let item of colors | keyvalue">
+              {{ item.value }}
+            </option>
+          </select>
+          <div *ngIf="submitted && f.color.errors" class="invalid-feedback">
+            <div *ngIf="f.color.errors.required">This field is required</div>
+          </div>
+        </div>
+
+        <div class="form-group col mb-4">
+          <label for="Category" class="form-label h6">Category</label>
+
+          <select
+            name="productCategory"
+            formControlName="productCategory"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.productCategory.errors }"
+          >
+            <option selected>Select Category</option>
+            <option
+              class="text-primary"
+              *ngFor="let item of category | keyvalue"
+            >
+              {{ item.value }}
+            </option>
+          </select>
+          <div
+            *ngIf="submitted && f.productCategory.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.productCategory.errors.required">
+              This field is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix text-center mt-4">
+        <button type="submit" class="btn btn-success w-25" data-dismiss="modal">
+          Update
+        </button>
+        &nbsp; &nbsp;
+        <button
+          type="button"
+          class="btn btn-danger w-25"
+          data-dismiss="modal"
+          (click)="Reset()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
